@@ -1,0 +1,28 @@
+/* Footer container style */
+.footer {
+  background-color: #f4f3f689; /* Light gray background */
+  color: #333; /* Dark text color */
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 1rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Footer copyright text */
+.footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Responsive Design: Adjust font size for smaller screens */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1rem 0;
+  }
+
+  .footer p {
+    font-size: 0.875rem;
+  }
+}
