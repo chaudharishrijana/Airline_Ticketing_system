@@ -3,21 +3,37 @@ import React, { createContext, useState } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser] = useState(null); // Not using setCurrentUser to avoid warning
 
-  const register = (userData) => {
-    const exists = users.find((u) => u.email === userData.email);
-    if (exists) return false;
-    setUsers([...users, userData]);
-    return true;
+  // Register function using Django backend
+  const register = async (userData) => {
+    try {
+      const response = await fetch('http://localhost:8000/api/register/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.status === 201) {
+        return true; // Registered successfully
+      } else if (response.status === 400) {
+        const data = await response.json();
+        console.error('Registration error:', data);
+        return false; // Email already registered or validation error
+      } else {
+        console.error('Unexpected response:', response.status);
+        return false;
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+      return false;
+    }
   };
 
-  const login = (email, password) => {
-    const user = users.find((u) => u.email === email && u.password === password);
-    if (!user) return null;
-    setCurrentUser(user);
-    return user;
+  // Placeholder login (can be connected to backend later)
+  const login = async (email, password) => {
+    console.warn('Login not implemented yet.');
+    return null;
   };
 
   return (
