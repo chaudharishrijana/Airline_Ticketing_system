@@ -1,9 +1,6 @@
 from rest_framework import serializers
 from .models import User, Flight, Booking
 
-
-
-
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -13,7 +10,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
-
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
